@@ -1,0 +1,30 @@
+[package]
+name = "indus-egm"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "Install the Elephant-Goldfish Model (EGM) design-review skills into a coding agent"
+license = "Apache-2.0"
+repository = "https://github.com/sufiyan-sabeel/indus-egm"
+homepage = "https://github.com/sufiyan-sabeel/indus-egm"
+readme = "README.md"
+keywords = ["egm", "skills", "agents", "design-review", "cli"]
+categories = ["command-line-utilities", "development-tools"]
+
+[lib]
+name = "indus_egm"
+path = "src/lib.rs"
+
+[[bin]]
+name = "indus-egm"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+lto = "thin"
+strip = true
