@@ -25,8 +25,26 @@ jobs:
         run: cargo build --all-targets
       - name: Test
         run: cargo test --all-targets
-      - name: Install into a scratch directory
+      - name: Describe bundles
+        run: cargo run --quiet -- bundles
+      - name: Install both bundles and verify
         run: |
           cargo run --quiet -- install --dest "$RUNNER_TEMP/egm" --force
           cargo run --quiet -- verify --dest "$RUNNER_TEMP/egm"
-          test -f "$RUNNER_TEMP/egm/skills/egm-review/SKILL.md"
+          test -f "$RUNNER_TEMP/egm/egm/skills/egm-review/SKILL.md"
+          test -f "$RUNNER_TEMP/egm/rea/skills/reverse-engineer-anything/SKILL.md"
+          test -f "$RUNNER_TEMP/egm/rea/mcp.json"
+      - name: Install one bundle and check isolation
+        run: |
+          cargo run --quiet -- install --bundle rea --dest "$RUNNER_TEMP/rea-only" --force
+          cargo run --quiet -- verify --bundle rea --dest "$RUNNER_TEMP/rea-only"
+          test ! -d "$RUNNER_TEMP/rea-only/egm"
+      - name: Migrate a 0.1.x layout
+        run: |
+          mkdir -p "$RUNNER_TEMP/legacy"
+          cargo run --quiet -- install --bundle egm --dest "$RUNNER_TEMP/legacy-tmp" --force
+          mv "$RUNNER_TEMP/legacy-tmp/egm/." "$RUNNER_TEMP/legacy/"
+          cargo run --quiet -- migrate --dest "$RUNNER_TEMP/legacy"
+          cargo run --quiet -- verify --bundle egm --dest "$RUNNER_TEMP/legacy"
+      - name: Doctor
+        run: cargo run --quiet -- doctor

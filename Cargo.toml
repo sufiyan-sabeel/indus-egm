@@ -1,14 +1,14 @@
 [package]
 name = "indus-egm"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 rust-version = "1.74"
-description = "Install the Elephant-Goldfish Model (EGM) design-review skills into a coding agent"
+description = "Install agent bundles (Elephant-Goldfish Model, REA) into a coding agent from one Rust binary"
 license = "Apache-2.0"
 repository = "https://github.com/sufiyan-sabeel/indus-egm"
 homepage = "https://github.com/sufiyan-sabeel/indus-egm"
 readme = "README.md"
-keywords = ["egm", "skills", "agents", "design-review", "cli"]
+keywords = ["egm", "rea", "skills", "agents", "mcp"]
 categories = ["command-line-utilities", "development-tools"]
 
 [lib]
